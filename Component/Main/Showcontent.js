@@ -9,17 +9,17 @@ import {
 	Image
 } from 'react-native';
 import faker from 'faker';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 const POSTS = [];
 
 let n = 1;
-while (n <= 10) {
+while (n <= 50) {
 	POSTS.push({
 		id: faker.random.uuid(),
 		author: faker.name.firstName(),
-		viewed: 194,
-		comments: 199,
-		imageUrl: 'https://placeimg.com/800/600/any',
+		avatar: faker.image.avatar(),
+		comment: 194,
+		view: 189,
 		content: faker.lorem.paragraphs()
 	});
 	n++;
@@ -44,38 +44,46 @@ export default class Showcontent extends React.Component {
 	}
 	renderItem = row => {
 		const post = row.item;
-		const imageWidth = Dimensions.get('window').width;
-		const imageHeight = imageWidth * (9 / 16);
-		const imageStyle = {
-			width: imageWidth,
-			height: imageHeight,
-			resizeMode: 'cover'
-		};
 		const shortContent = post.content
 			.split(/\s+/)
 			.slice(0, 80)
 			.join(' ');
 		return (
-			<TouchableOpacity
-				style={styles.container}
-				onPress={this.handlePostPressed.bind(this, post)}
-			>
-				<Image source={{ uri: post.imageUrl }} style={imageStyle} />
-				<View style={styles.meta}>
-					<Text style={styles.metaText}>{post.author}</Text>
-					<Text style={styles.metaText}>comments: {post.viewed}</Text>
-					<Text style={styles.metaText}>viewed: {post.viewed}</Text>
-				</View>
+			<View style={styles.container}>
+				<Image source={{ uri: post.avatar }} style={styles.imageStyle} />
+				<Text style={styles.metaText}>{post.author}</Text>
 				<Text style={styles.content}>{shortContent}...</Text>
-			</TouchableOpacity>
+				<View style={styles.meta}>
+					<TouchableOpacity onPress={this.handlePostPressed.bind(this, post)}>
+						<Text>
+							{' '}
+							<Icon
+								name="ios-chatbubbles-outline"
+								size={30}
+								color="black"
+							/>{' '}
+							139
+						</Text>
+					</TouchableOpacity>
+					<Text>
+						{' '}
+						<Icon name="ios-git-compare-outline" size={30} color="black" />
+						154
+					</Text>
+					<Text>
+						{' '}
+						<Icon name="ios-heart-outline" size={30} color="black" />
+						128
+					</Text>
+					<Icon name="ios-share-outline" size={30} color="black" />
+				</View>
+			</View>
 		);
 	};
 	renderSeparator() {
 		return <View style={styles.separator} />;
 	}
 }
-
-const fontScale = Dimensions.get('window').fontScale;
 
 const styles = {
 	container: {
@@ -89,17 +97,24 @@ const styles = {
 	},
 	meta: {
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		padding: 8,
-		paddingBottom: 0
+		padding: 2,
+		paddingBottom: 1,
+		alignItems: 'center',
+		justifyContent: 'space-evenly'
 	},
 	metaText: {
-		fontSize: 14 * fontScale,
+		marginLeft: 5,
+		fontSize: 14,
+		padding: 8,
 		fontWeight: 'bold'
 	},
 	content: {
 		padding: 8,
-		fontSize: 14 * fontScale,
-		lineHeight: 14 * fontScale * 1.5
+		fontSize: 14,
+		lineHeight: 18
+	},
+	imageStyle: {
+		height: 60,
+		width: 60
 	}
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Text } from 'react-native';
 import Dash from 'react-native-dash';
 
 export default class Search extends React.Component {

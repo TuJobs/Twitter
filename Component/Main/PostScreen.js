@@ -7,6 +7,7 @@ import {
 	ScrollView,
 	TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class PostScreen extends React.Component {
 	handleCommentPress = () => {
@@ -24,24 +25,23 @@ export default class PostScreen extends React.Component {
 						style={{ width: imageWidth, height: imageWidth }}
 						resizeMode="cover"
 					/>
+					<Image
+						source={{ uri: post.avatar }}
+						style={{ width: 60, height: 60 }}
+					/>
 					<Text style={styles.content}>{post.content}</Text>
 				</ScrollView>
 				<View style={styles.meta}>
 					<TouchableOpacity
-						onPress={() => this.props.navigation.navigate('infochange')}
-					>
-						<Text style={styles.metaText}>Info</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
 						onPress={() => this.props.navigation.navigate('search')}
 					>
-						<Text style={styles.metaText}>Search</Text>
+						<Icon name="ios-search-outline" size={30} color="black" />
 					</TouchableOpacity>
-					<Text style={styles.metaText}>{post.author}</Text>
+					<Icon name="ios-create-outline" size={30} color="black" />
 					<TouchableOpacity onPress={this.handleCommentPress}>
-						<Text style={styles.metaText}>comments: {post.viewed}</Text>
+						<Icon name="ios-chatbubbles-outline" size={30} color="black" />
 					</TouchableOpacity>
-					<Text style={styles.metaText}>viewed: {post.viewed}</Text>
+					<Icon name="ios-crop-outline" size={30} color="black" />
 				</View>
 			</View>
 		);
@@ -51,7 +51,7 @@ export default class PostScreen extends React.Component {
 const styles = {
 	container: {
 		flex: 1,
-		backgroundColor: '#FFF'
+		backgroundColor: '#fff'
 	},
 	content: {
 		padding: 16,
@@ -66,7 +66,7 @@ const styles = {
 		paddingBottom: 8,
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		backgroundColor: '#005ea0'
+		backgroundColor: '#fff'
 	},
 	metaText: {
 		color: '#f8f8f8',
